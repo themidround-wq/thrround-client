@@ -1,26 +1,128 @@
 @import "tailwindcss";
 
+/*
+ * the round — design tokens (App V2).
+ * Brand colours come from the landing page (../theround/app/globals.css).
+ * The app itself is light: paper surfaces, a forest-green brand panel, lime
+ * as the single accent, moss green for labels, progress and selection.
+ * Values are sampled from the V2 designs (Section 1, Shared elements).
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand */
+  --ink: #14271a; /* brand panel, headings */
+  --forest: #15251a; /* primary button */
+  --cream: #f1f0df;
+  --lime: #caff79; /* accent: arrow circles, headline italics */
+  --moss: #5e9d3d; /* eyebrows, progress, selection, links */
+  --sprout: #8fb85d; /* waveform bars */
+
+  /* Surfaces */
+  --mist: #ecefe9; /* outer canvas around the app frame */
+  --paper: #fbfcf9; /* content panel */
+  --white: #ffffff;
+  --chip: #f4f6f2; /* Google "G" circle */
+  --brand-card: #213327; /* card on the brand panel */
+  --brand-line: #37473c;
+
+  /* Lines and states */
+  --field: #dce2d8; /* input and card borders */
+  --track: #e5e9e2; /* progress track */
+  --tint: #eef4ea; /* selected option background */
+  --ring: #82a874; /* selected option border */
+  --dot-off: #dbe6d5;
+  --disabled: #b1b7b1;
+  --disabled-circle: #e5f7d0;
+
+  /* Text */
+  --text: #14271a;
+  --text-2: #5f675f; /* body copy on paper */
+  --text-3: #8a918a; /* hints, footer */
+
+  --danger: #b4321f;
+  --danger-soft: #fbe9e5;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-ink: var(--ink);
+  --color-forest: var(--forest);
+  --color-cream: var(--cream);
+  --color-lime: var(--lime);
+  --color-moss: var(--moss);
+  --color-sprout: var(--sprout);
+  --color-mist: var(--mist);
+  --color-paper: var(--paper);
+  --color-chip: var(--chip);
+  --color-brand-card: var(--brand-card);
+  --color-brand-line: var(--brand-line);
+  --color-field: var(--field);
+  --color-track: var(--track);
+  --color-tint: var(--tint);
+  --color-ring: var(--ring);
+  --color-dot-off: var(--dot-off);
+  --color-disabled: var(--disabled);
+  --color-disabled-circle: var(--disabled-circle);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-satoshi);
+  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--text);
+}
+
+@media (min-width: 1024px) {
+  body {
+    background: var(--mist);
+  }
+}
+
+::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes toast-in {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Idle "speaking" motion for the prompt card waveform. */
+@keyframes voice-bar {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.55);
+  }
+}
+.voice-bar {
+  transform-origin: center;
+  animation: voice-bar 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
